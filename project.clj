@@ -1,4 +1,4 @@
-(defproject protean-simlib "0.11.0"
+(defproject protean-simlib "0.12.0"
   :description "Protean Sample Sim Library."
   :url "http://github.com/protean-api/protean-simlib"
   :license {:name "Apache License v2.0"
