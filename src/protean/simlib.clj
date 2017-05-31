@@ -11,9 +11,13 @@
 ;; Generally Useful Functions
 ;; =============================================================================
 
-;; TODO: should find a more permanent home for this
 (defn parse-id [s] (Integer. (re-find  #"\d+" s)))
 
+(defmacro prob
+  "First arity evaluates the provided fn with specified probability.
+   Second arity evaulates first fn with provided prob else second fn."
+  ([n then] `(if (< (rand) ~n) ~then))
+  ([n then else] `(if (< (rand) ~n) ~then ~else)))
 
 ;; =============================================================================
 ;; Sim Library Request Functions
@@ -27,6 +31,7 @@
 
 (defn pp [p] (path-param p))
 
+(defn mp [p key] ((matrix-params p) key))
 
 ;; =============================================================================
 ;; Sim Library Response Functions
@@ -43,28 +48,6 @@
   ([s h b] (b-rsp s (merge h {h/ctype h/jsn}) (js b))))
 
 (defn txt [s b] (b-rsp s {h/ctype h/txt} b))
-
-(defn mp [p] (matrix-params p))
-
-(defn mps [mp-name key]
-  (get (mp mp-name) key))
-  
-;; =============================================================================
-;; Sim Library Payload Transport Functions
-;; =============================================================================
-
-(defn post
-  ([url body] (post nil body))
-  ([url hdrs body] (simple-request :post url hdrs body)))
-
-(defn put
-  ([url body] (put url nil body))
-  ([url hdrs body] (simple-request :put url hdrs body)))
-
-(defn patch
-  ([url body] (patch url nil body))
-  ([url hdrs body] (simple-request :patch url hdrs body)))
-
 
 ;; =============================================================================
 ;; Sim Library Scenario Modelling and Route Solution
