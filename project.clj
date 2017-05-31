@@ -7,5 +7,4 @@
   :dependencies [[org.clojure/clojure "1.8.0"]
                  [protean-api "0.11.0"]]
   :plugins [[lein-expectations "0.0.8"]]
-  :aot :all
-  :uberjar-name ~(str (-> "project.clj" slurp read-string (nth 1)) "-" (-> "project.clj" slurp read-string (nth 2)) "-standalone.jar"))
+  :aot :all)
