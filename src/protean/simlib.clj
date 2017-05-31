@@ -44,7 +44,11 @@
 
 (defn txt [s b] (b-rsp s {h/ctype h/txt} b))
 
+(defn mp [p] (matrix-params p))
 
+(defn mps [mp-name key]
+  (get (mp mp-name) key))
+  
 ;; =============================================================================
 ;; Sim Library Payload Transport Functions
 ;; =============================================================================
