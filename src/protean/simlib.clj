@@ -6,7 +6,6 @@
             [protean.api.protocol.http :as h]
             [protean.api.transformation.coerce :refer [clj js]]))
 
-
 ;; =============================================================================
 ;; Generally Useful Functions
 ;; =============================================================================
@@ -20,21 +19,22 @@
   ([n then else] `(if (< (rand) ~n) ~then ~else)))
 
 ;; =============================================================================
-;; Sim Library Request Functions
+;; Sim Library Request Param Functions offer shorthand notation
 ;; =============================================================================
 
-(defn bp [p] (body-param p true))
+(defn bp [req p] (body-param req p true))
 
-(defn qp [p] (query-param p))
+(defn qp [req p] (query-param req p))
 
-(defn qp= [x p] (= (qp p) x))
+(defn qp= [req x p] (= (qp req p) x))
 
-(defn pp [p] (path-param p))
+(defn pp [req p] (path-param req p))
 
-(defn mp [p key] ((matrix-params p) key))
+(defn mp [req p key] ((matrix-params req p) key))
 
 ;; =============================================================================
-;; Sim Library Response Functions
+;; Sim Library Response Functions are not built from codex specification
+;; anything goes :=)
 ;; =============================================================================
 
 (defn h-rsp [s hdr] {:status s :headers {h/loc hdr}})
@@ -53,8 +53,8 @@
 ;; Sim Library Scenario Modelling and Route Solution
 ;; =============================================================================
 
-(defn solve [routes]
-  (seq (remove nil? (map #(if ((first %)) (last %) nil) routes))))
-
-(defn route-rsp [routes]
-  (if-let [errs (solve routes)] ((rand-nth errs)) (success)))
+; (defn solve [routes]
+;   (seq (remove nil? (map #(if ((first %)) (last %) nil) routes))))
+;
+; (defn route-rsp [routes]
+;   (if-let [errs (solve routes)] ((rand-nth errs)) (success)))
