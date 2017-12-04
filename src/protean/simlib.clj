@@ -4,7 +4,7 @@
 (ns protean.simlib
   (:require [protean.api.transformation.sim :refer :all]
             [protean.api.protocol.http :as h]
-            [protean.api.transformation.coerce :refer [clj js]]))
+            [protean.api.transformation.coerce :as c]))
 
 ;; =============================================================================
 ;; Generally Useful Functions
@@ -44,8 +44,8 @@
 (defn rsp [s] {:status s})
 
 (defn jsn
-  ([s b] (b-rsp s {h/ctype h/jsn} (js b)))
-  ([s h b] (b-rsp s (merge h {h/ctype h/jsn}) (js b))))
+  ([s b] (b-rsp s {h/ctype h/jsn} (c/jsn b)))
+  ([s h b] (b-rsp s (merge h {h/ctype h/jsn}) (c/jsn b))))
 
 (defn txt [s b] (b-rsp s {h/ctype h/txt} b))
 
