@@ -30,7 +30,7 @@
 
 (defn pp [req p] (path-param req p))
 
-(defn mp [req p key] ((matrix-params req p) key))
+(defn mp [req p] (matrix-param req p))
 
 ;; =============================================================================
 ;; Sim Library Response Functions are not built from codex specification
