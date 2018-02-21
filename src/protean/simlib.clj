@@ -24,6 +24,8 @@
 
 (defn bp [req p] (body-param req p true))
 
+(defn hp [req p] (header-param req p))
+
 (defn qp [req p] (query-param req p))
 
 (defn qp= [req x p] (= (qp req p) x))
