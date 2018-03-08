@@ -5,6 +5,6 @@
             :url "http://www.apache.org/licenses/LICENSE-2.0"}
   :min-lein-version "2.0.0"
   :dependencies [[org.clojure/clojure "1.9.0"]
-                 [protean-api "0.12.0-alpha.1"]]
+                 [protean-api "0.12.0"]]
   :plugins [[lein-expectations "0.0.8"]]
   :aot :all)
