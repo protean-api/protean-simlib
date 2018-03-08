@@ -4,8 +4,7 @@
 (ns protean.simlib
   (:require [protean.api.transformation.sim :refer :all]
             [protean.api.protocol.http :as h]
-            [protean.api.transformation.coerce :refer [clj js]]))
-
+            [protean.api.transformation.coerce :as c]))
 
 ;; =============================================================================
 ;; Generally Useful Functions
@@ -20,21 +19,24 @@
   ([n then else] `(if (< (rand) ~n) ~then ~else)))
 
 ;; =============================================================================
-;; Sim Library Request Functions
+;; Sim Library Request Param Functions offer shorthand notation
 ;; =============================================================================
 
-(defn bp [p] (body-param p true))
+(defn bp [req p] (body-param req p true))
 
-(defn qp [p] (query-param p))
+(defn hp [req p] (header-param req p))
 
-(defn qp= [x p] (= (qp p) x))
+(defn qp [req p] (query-param req p))
 
-(defn pp [p] (path-param p))
+(defn qp= [req x p] (= (qp req p) x))
 
-(defn mp [p key] ((matrix-params p) key))
+(defn pp [req p] (path-param req p))
+
+(defn mp [req p] (matrix-param req p))
 
 ;; =============================================================================
-;; Sim Library Response Functions
+;; Sim Library Response Functions are not built from codex specification
+;; anything goes :=)
 ;; =============================================================================
 
 (defn h-rsp [s hdr] {:status s :headers {h/loc hdr}})
@@ -44,8 +46,8 @@
 (defn rsp [s] {:status s})
 
 (defn jsn
-  ([s b] (b-rsp s {h/ctype h/jsn} (js b)))
-  ([s h b] (b-rsp s (merge h {h/ctype h/jsn}) (js b))))
+  ([s b] (b-rsp s {h/ctype h/jsn} (c/jsn b)))
+  ([s h b] (b-rsp s (merge h {h/ctype h/jsn}) (c/jsn b))))
 
 (defn txt [s b] (b-rsp s {h/ctype h/txt} b))
 
@@ -53,8 +55,8 @@
 ;; Sim Library Scenario Modelling and Route Solution
 ;; =============================================================================
 
-(defn solve [routes]
-  (seq (remove nil? (map #(if ((first %)) (last %) nil) routes))))
-
-(defn route-rsp [routes]
-  (if-let [errs (solve routes)] ((rand-nth errs)) (success)))
+; (defn solve [routes]
+;   (seq (remove nil? (map #(if ((first %)) (last %) nil) routes))))
+;
+; (defn route-rsp [routes]
+;   (if-let [errs (solve routes)] ((rand-nth errs)) (success)))
