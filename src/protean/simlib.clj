@@ -50,13 +50,3 @@
   ([s h b] (b-rsp s (merge h {h/ctype h/jsn}) (c/jsn b))))
 
 (defn txt [s b] (b-rsp s {h/ctype h/txt} b))
-
-;; =============================================================================
-;; Sim Library Scenario Modelling and Route Solution
-;; =============================================================================
-
-; (defn solve [routes]
-;   (seq (remove nil? (map #(if ((first %)) (last %) nil) routes))))
-;
-; (defn route-rsp [routes]
-;   (if-let [errs (solve routes)] ((rand-nth errs)) (success)))
